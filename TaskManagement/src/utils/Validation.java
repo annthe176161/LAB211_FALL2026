@@ -2,12 +2,11 @@ package utils;
 
 import constants.Message;
 import constants.TaskType;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Validation {
-
-    private static final double EPSILON = 0.000001;
 
     private Validation() {
     }
@@ -67,24 +66,45 @@ public final class Validation {
     }
 
     public static double validatePlanTimeInput(String input) throws Exception {
-        double value = getPositiveDouble(input);
+        BigDecimal value;
+        try {
+            value = new BigDecimal(getString(input));
+        } catch (NumberFormatException e) {
+            throw new Exception(Message.INVALID_TIME_NUMBER);
+        }
+
         validateHalfHourStep(value);
         validateTimeRange(value);
-        return value;
+        return value.doubleValue();
     }
 
-    private static void validateHalfHourStep(double value) throws Exception {
-        double doubledValue = value * 2;
-        if (Math.abs(doubledValue - Math.round(doubledValue)) > EPSILON) {
+    private static void validateHalfHourStep(BigDecimal value) throws Exception {
+        if (value.remainder(new BigDecimal("0.5")).compareTo(BigDecimal.ZERO) != 0) {
             throw new Exception(Message.INVALID_TIME_FORMAT);
         }
     }
 
-    private static void validateTimeRange(double value) throws Exception {
-        if (value < 8.0 || value > 17.5) {
+    private static void validateTimeRange(BigDecimal value) throws Exception {
+        if (value.compareTo(new BigDecimal("8.0")) < 0
+                || value.compareTo(new BigDecimal("17.5")) > 0) {
             throw new Exception(Message.INVALID_TIME_RANGE);
         }
     }
+
+    /*
+    public static double validatePlanTimeInputWithoutBigDecimal(String input) throws Exception {
+        String normalized = getString(input);
+        if (!normalized.matches("\\d+(?:\\.0+|\\.5(?:0*)?)?")) {
+            throw new Exception(Message.INVALID_TIME_FORMAT);
+        }
+
+        double value = getPositiveDouble(normalized);
+        if (value < 8.0 || value > 17.5) {
+            throw new Exception(Message.INVALID_TIME_RANGE);
+        }
+        return value;
+    }
+    */
 
     // Validate working time
     public static void validatePlanTime(double from, double to) throws Exception {
