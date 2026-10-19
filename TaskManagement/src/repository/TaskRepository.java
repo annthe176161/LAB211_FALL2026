@@ -23,7 +23,7 @@ public class TaskRepository {
     }
 
     //Them task
-    public void addTask(TaskRequestDTO dto) {
+    public int addTask(TaskRequestDTO dto) {
         //Tao doi tuong task tu dto
         Task task = new Task(
                 ++lastId,
@@ -38,6 +38,7 @@ public class TaskRepository {
         //Them task vao danh sach
         taskList.add(task);
         //Tra ve id vua tao
+        return lastId;
     }
 
     //Tim task bang Id
