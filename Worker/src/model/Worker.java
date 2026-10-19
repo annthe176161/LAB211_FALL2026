@@ -4,6 +4,8 @@
  */
 package model;
 
+import constants.SalaryStatus;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class Worker {
         this.currentSalary = currentSalary;
         this.location = location;
         this.history = new ArrayList<>();
+        this.history.add(new SalaryHistory(currentSalary, SalaryStatus.NEW, LocalDate.now()));
     }
 
     public String getId() {

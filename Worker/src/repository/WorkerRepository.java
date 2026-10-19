@@ -4,11 +4,14 @@
  */
 package repository;
 
+import constants.SalaryStatus;
 import dto.WorkerRequestDTO;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import model.SalaryHistory;
 import model.Worker;
 
 /**
@@ -40,6 +43,11 @@ public class WorkerRepository {
     }
 
     public void save(Worker worker) {
+
+    }
+
+    public void save(WorkerRequestDTO dto) {
+        Worker worker = new Worker(dto.getId(), dto.getName(), dto.getAge(), dto.getSalary(), dto.getLocation());
         this.workerMap.put(worker.getId(), worker);
     }
 }

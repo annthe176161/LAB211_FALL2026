@@ -10,7 +10,8 @@ package constants;
  */
 public enum SalaryStatus {
     UP,
-    DOWN;
+    DOWN,
+    NEW;
 
     private SalaryStatus() {
     }

@@ -32,10 +32,7 @@ public class WorkerService {
         if (this.repository.exists(dto.getId())) {
             throw new Exception(Messages.DUPLICATE);
         } else {
-            Worker worker = new Worker(dto.getId(), dto.getName(), dto.getAge(), dto.getSalary(), dto.getLocation());
-            // Them lich su luong khoi diem
-            worker.addHistory(new SalaryHistory(worker.getCurrentSalary(), SalaryStatus.UP, LocalDate.now()));
-            this.repository.save(worker);
+            this.repository.save(dto);
         }
     }
 
