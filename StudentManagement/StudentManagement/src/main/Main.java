@@ -63,10 +63,10 @@ public class Main {
                                 System.out.println(Message.INVALID_COURSE);
                             }
                             dto.setCourse(course);
-                            // Goi controller tao sinh vien
-                            controller.createStudent(dto);
+                            // Goi controller tao sinh vien va kiem tra xem da du dieu kien hoi tiep tuc chua
+                            boolean canAskContinue = controller.createStudent(dto);
                             // Neu da co it nhat 10 sinh vien thi hoi tiep tuc
-                            if (!controller.isDatabaseLessThanTen()) {
+                            if (canAskContinue) {
                                 System.out.print(Message.CONTINUE_CREATE);
                                 String answer = Validation.validateYesNo(sc.nextLine());
                                 // Neu chon N thi quay ve menu

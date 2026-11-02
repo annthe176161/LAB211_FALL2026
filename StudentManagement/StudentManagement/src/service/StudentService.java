@@ -24,8 +24,8 @@ public class StudentService {
         repository = new StudentRepository();
     }
 
-    // tao sinh vien moi
-    public void createStudent(StudentRequestDTO dto) throws Exception {
+    // tao sinh vien moi, tra ve true neu da co >= 10 sinh vien de hoi tiep tuc
+    public boolean createStudent(StudentRequestDTO dto) throws Exception {
 
         Student student = repository.findById(dto.getId());
 
@@ -35,6 +35,9 @@ public class StudentService {
             repository.checkDuplicate(student, dto);
             repository.addCourseToStudent(student, dto);
         }
+
+        // Tra ve true neu da du tu 10 sinh vien tro len de hoi tiep tuc
+        return getTotalStudents() >= 10;
     }
 
     //Cap nhat sinh vien

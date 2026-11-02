@@ -19,10 +19,10 @@ public class StudentController {
         studentView = new StudentView();
     }
 
-    //Tao sinh vien moi
-    public void createStudent(StudentRequestDTO dto) throws Exception {
-        // Goi Service thuc hien them sinh vien
-        studentService.createStudent(dto);
+    //Tao sinh vien moi, tra ve true neu da du dieu kien hoi tiep tuc
+    public boolean createStudent(StudentRequestDTO dto) throws Exception {
+        // Goi Service thuc hien them sinh vien va kiem tra so luong
+        return studentService.createStudent(dto);
     }
 
     //Cap nhat sinh vien
@@ -68,10 +68,5 @@ public class StudentController {
         studentView.setReportData(data);
         // Hien thi ket qua
         studentView.display();
-    }
-
-    //Neu so sinh vien nhap vao < 10
-    public boolean isDatabaseLessThanTen() {
-        return studentService.getTotalStudents() < 2;
     }
 }
