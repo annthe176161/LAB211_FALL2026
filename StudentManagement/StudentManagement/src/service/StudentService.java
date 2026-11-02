@@ -25,32 +25,21 @@ public class StudentService {
     }
 
     // tao sinh vien moi
-    public boolean createStudent(StudentRequestDTO dto) throws Exception {
+    public void createStudent(StudentRequestDTO dto) throws Exception {
 
         Student student = repository.findById(dto.getId());
-        
-        if(student == null)
-        {
-            student = new Student(dto.getId(),dto.getName());
-            StudentCourse newCourse = new StudentCourse(dto.getSemester(),dto.getCourse());
-            repository.addStudent(student);
-            addCourseToStudent(student, newCourse);
-        }
-        else
-        {
+
+        if (student == null) {
+            repository.addStudent(dto);
+        } else {
             repository.checkDuplicate(student, dto);
+            repository.addCourseToStudent(student, dto);
         }
-        // sau khi hop le thi tien hanh them
-        return true;
     }
-    
-    public void addCourseToStudent(Student student, StudentCourse course)
-    {
-        repository.addCourseToStudent(student, course);
-    }
+
     //Cap nhat sinh vien
-    public boolean updateStudent(String id, StudentRequestDTO dto) throws Exception {
-        return repository.updateStudent(id, dto);
+    public void updateStudent(String id, StudentRequestDTO dto) throws Exception {
+        repository.updateStudent(id, dto);
     }
 
     //Xoa sinh vien

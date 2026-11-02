@@ -9,7 +9,6 @@ import view.StudentView;
 
 public class StudentController {
     // Goi Service de xu ly nghiep vu
-
     private StudentService studentService;
     // Goi View de hien thi du lieu ra man hinh
     private StudentView studentView;
@@ -19,8 +18,8 @@ public class StudentController {
         studentService = new StudentService();
         studentView = new StudentView();
     }
-    //Tao sinh vien moi
 
+    //Tao sinh vien moi
     public void createStudent(StudentRequestDTO dto) throws Exception {
         // Goi Service thuc hien them sinh vien
         studentService.createStudent(dto);
@@ -28,12 +27,8 @@ public class StudentController {
 
     //Cap nhat sinh vien
     public void updateStudent(String id, StudentRequestDTO dto) throws Exception {
-        // Goi Service cap nhat
-        boolean result = studentService.updateStudent(id, dto);
-        // Neu sinh vien khong ton tai thi bao loi
-        if (!result) {
-            throw new Exception(Message.STUDENT_NOT_EXIST);
-        }
+        // Goi Service cap nhat (neu khong tim thay, Service/Repo se nem loi)
+        studentService.updateStudent(id, dto);
     }
 
     //Xoa sinh vien
@@ -45,6 +40,7 @@ public class StudentController {
             throw new Exception(Message.STUDENT_NOT_EXIST);
         }
     }
+
     //Ham tim kiem va sap xep danh sach sinh vien
     public void findAndSort(String keyword) throws Exception {
 
