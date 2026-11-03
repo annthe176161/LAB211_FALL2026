@@ -33,12 +33,8 @@ public class StudentController {
 
     //Xoa sinh vien
     public void deleteStudent(String id) throws Exception {
-        // Goi Service xoa
-        boolean result = studentService.deleteStudent(id);
-        // Neu khong tim thay sinh vien thi nem loi
-        if (!result) {
-            throw new Exception(Message.STUDENT_NOT_EXIST);
-        }
+        // Goi Service xoa (neu khong tim thay, Service/Repo se nem loi)
+        studentService.deleteStudent(id);
     }
 
     //Ham tim kiem va sap xep danh sach sinh vien

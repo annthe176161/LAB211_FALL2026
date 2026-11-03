@@ -47,8 +47,4 @@ public class Student {
     public void addCourse(StudentCourse sc) {
         courses.add(sc);
     }
-    //Cap nhat ten
-    public void updateInfo(String newName) {
-        this.name = newName;
-    }
 }

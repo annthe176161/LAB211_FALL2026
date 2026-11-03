@@ -31,6 +31,7 @@ public final class Message {
     public static final String INVALID_COURSE = "Course must be JAVA, .NET or C++";
     public static final String DATABASE_EMPTY = "Database is empty";
     public static final String STUDENT_NOT_EXIST = "Student does not exist";
+    public static final String STUDENT_EXIST = "Student already exists";
     public static final String DUPLICATE_COURSE = "Student already registered this course in this semester!";
     public static final String DUPLICATE_ID = "Student ID already exists with different name!";
     // Thong bao xac nhan

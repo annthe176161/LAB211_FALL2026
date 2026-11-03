@@ -35,37 +35,11 @@ public class StudentRepository {
     // ================= UPDATE =================
     // cap nhat thong tin sinh vien
     public void updateStudent(String id, StudentRequestDTO dto) throws Exception {
-
-        // tim sinh vien theo id
-        Student student = findById(id);
-
-        // neu khong ton tai thi khong update duoc
-        if (student == null) {
-            throw new Exception(Message.STUDENT_NOT_EXIST);
-        }
-
-        // cap nhat ten sinh vien
-        student.updateInfo(dto.getName());
+        Student student = getStudentById(id);
 
         // neu mon hoc o ky nay chua co thi moi them vao
         if (!isCourseExist(student, dto.getSemester(), dto.getCourse())) {
             student.addCourse(new StudentCourse(dto.getSemester(), dto.getCourse()));
-        }
-    }
-
-    // ================= CHECK DUPLICATE =================
-    // Kiem tra trung du lieu khi tao moi
-    public void checkDuplicate(Student student, StudentRequestDTO dto) throws Exception {
-
-        // neu id trung nhung ten khac -> loi
-        if (!student.getName().equalsIgnoreCase(dto.getName())) {
-            throw new Exception(Message.DUPLICATE_ID);
-        }
-
-        // kiem tra trung semester + course
-        // 1 semester co the hoc nhieu mon, nhung khong duoc hoc 1 mon 2 lan
-        if (isCourseExist(student, dto.getSemester(), dto.getCourse())) {
-            throw new Exception(Message.DUPLICATE_COURSE);
         }
     }
 
@@ -81,21 +55,22 @@ public class StudentRepository {
 
     // ================= DELETE =================
     // xoa sinh vien khoi danh sach
-    public boolean deleteStudent(String id) {
-
-        Student student = findById(id);
-
-        // neu khong tim thay thi khong xoa duoc
-        if (student == null) {
-            return false;
-        }
-
+    public void deleteStudent(String id) throws Exception {
+        Student student = getStudentById(id);
         studentList.remove(student);
-        return true;
     }
 
     // ================= FIND =================
-    // tim sinh vien theo id
+    // tim sinh vien theo id, neu khong thay thi nem loi
+    public Student getStudentById(String id) throws Exception {
+        Student student = findById(id);
+        if (student == null) {
+            throw new Exception(Message.STUDENT_NOT_EXIST);
+        }
+        return student;
+    }
+
+    // tim sinh vien theo id (tra ve null neu khong thay)
     public Student findById(String id) {
         for (Student s : studentList) {
             if (s.getId().equalsIgnoreCase(id)) {

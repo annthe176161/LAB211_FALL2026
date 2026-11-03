@@ -32,8 +32,7 @@ public class StudentService {
         if (student == null) {
             repository.addStudent(dto);
         } else {
-            repository.checkDuplicate(student, dto);
-            repository.addCourseToStudent(student, dto);
+            throw new Exception(Message.STUDENT_EXIST);
         }
 
         // Tra ve true neu da du tu 10 sinh vien tro len de hoi tiep tuc
@@ -46,8 +45,8 @@ public class StudentService {
     }
 
     //Xoa sinh vien
-    public boolean deleteStudent(String id) {
-        return repository.deleteStudent(id);
+    public void deleteStudent(String id) throws Exception {
+        repository.deleteStudent(id);
     }
 
     //Tim kiem va sap xep sinh vien

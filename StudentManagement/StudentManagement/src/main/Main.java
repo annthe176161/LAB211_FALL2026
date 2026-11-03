@@ -93,17 +93,20 @@ public class Main {
                         if (action.equals("U")) {
                             StudentRequestDTO dto = new StudentRequestDTO();
                             dto.setId(id);
-                            System.out.print(Message.INPUT_NAME);
-                            dto.setName(Validation.getString(sc.nextLine()));
                             System.out.print(Message.INPUT_SEMESTER);
                             dto.setSemester(Validation.getString(sc.nextLine()));
                             CourseType course;
                             while (true) {
                                 System.out.print(Message.INPUT_COURSE);
-                                course = Validation.validateCourse(sc.nextLine());
 
-                                if (course != null) {
-                                    break;
+                                try {
+                                    course = Validation.validateCourse(sc.nextLine());
+                                    if (course != null) {
+                                        break;
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println(Message.INVALID_COURSE);
+                                    continue;
                                 }
 
                                 System.out.println(Message.INVALID_COURSE);
